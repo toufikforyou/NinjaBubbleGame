@@ -86,6 +86,7 @@ fun MainScreen() {
     var screenWidth by remember { mutableStateOf(0) }
     var screenHeight by remember { mutableStateOf(0) }
 
+    // Update difficulty levels
     LaunchedEffect(game.score) {
         levels
             .filter { it.first.score == game.score }
@@ -142,6 +143,7 @@ fun MainScreen() {
         )
     }
 
+    // Spawn the Weapons
     LaunchedEffect(isRunning, game.status) {
         while (isRunning && game.status == GameStatus.Started) {
             delay(WEAPON_SPAWN_RATE)
@@ -156,6 +158,7 @@ fun MainScreen() {
         }
     }
 
+    // Spawn the Targets
     LaunchedEffect(game.status) {
         while (game.status == GameStatus.Started) {
             delay(TARGET_SPAWN_RATE)
@@ -192,6 +195,7 @@ fun MainScreen() {
         }
     }
 
+    // Move Weapons & Targets and add Collision Detection
     LaunchedEffect(game.status) {
         while (game.status == GameStatus.Started) {
             withFrameMillis {
